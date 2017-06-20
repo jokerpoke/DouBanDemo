@@ -6,37 +6,36 @@ import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import com.example.xgj.mybaselibrary.utils.IsDeBugUtils;
-import com.example.xgj.mybaselibrary.utils.NetUtil;
 
 /**
  * Created by chen on 2017/6/19.
  */
 
-public class BaseApplication extends Application {
-    public static BaseApplication baseApplication;
+public class MyBaseApplication extends Application {
+    public static MyBaseApplication myBaseApplication;
 
     private static Toast toast;
 
 
-    public static BaseApplication getBaseApplication() {
-        return baseApplication;
+    public static MyBaseApplication getBaseApplication() {
+        return myBaseApplication;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        this.baseApplication = this;
+        this.myBaseApplication = this;
         IsDeBugUtils.isInDebug(this);// debug包为true，release包为false
-        if (NetUtil.isNetConnection(baseApplication)) {
-            //网络请求操作
-
-        }
-        //        else if (NetUtil.isWifiConnection(baseApplication)) {
-        //            showToast("你现在正在非WIFI下浏览，请注意！", 1);
-        //        }
-        else {
-            showToast("请检查网络是否已连接", 1);
-        }
+//        if (NetUtil.isNetConnection(myBaseApplication)) {
+//            //网络请求操作
+//
+//        }
+//        //        else if (NetUtil.isWifiConnection(baseApplication)) {
+//        //            showToast("你现在正在非WIFI下浏览，请注意！", 1);
+//        //        }
+//        else {
+//            showToast("请检查网络是否已连接", 1);
+//        }
 
 
     }
@@ -51,11 +50,11 @@ public class BaseApplication extends Application {
     public void showToast(String str, int time) {
         if (toast == null) {
             if (time == 0) {
-                toast = Toast.makeText(baseApplication,
+                toast = Toast.makeText(myBaseApplication,
                         str,
                         Toast.LENGTH_SHORT);
             } else if (time == 1) {
-                toast = Toast.makeText(baseApplication,
+                toast = Toast.makeText(myBaseApplication,
                         str,
                         Toast.LENGTH_SHORT);
             }
@@ -66,7 +65,7 @@ public class BaseApplication extends Application {
     }
 
     public void ShowAlertDialog(String title, String message, int icon) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(baseApplication);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(myBaseApplication);
         dialog.setTitle(title);
         dialog.setMessage(message);
         dialog.setIcon(icon);

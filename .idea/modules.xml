@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DouBanDemo.iml" filepath="$PROJECT_DIR$/DouBanDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RxJavaRetrofitDemo/RxJavaRetrofitDemo.iml" filepath="$PROJECT_DIR$/RxJavaRetrofitDemo/RxJavaRetrofitDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/mybaselibrary/mybaselibrary.iml" filepath="$PROJECT_DIR$/mybaselibrary/mybaselibrary.iml" />
     </modules>

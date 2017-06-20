@@ -1,1 +1,1 @@
-include ':app', ':mybaselibrary'
+include ':app', ':mybaselibrary', ':RxJavaRetrofitDemo'

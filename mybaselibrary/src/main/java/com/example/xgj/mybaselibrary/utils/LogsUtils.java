@@ -7,7 +7,7 @@ package com.example.xgj.mybaselibrary.utils;
 
 import android.util.Log;
 
-import com.example.xgj.mybaselibrary.base.BaseApplication;
+import com.example.xgj.mybaselibrary.base.MyBaseApplication;
 
 /**
  * Log统一管理类
@@ -22,8 +22,9 @@ public class LogsUtils {
     }
 
     // debug包为true，release包为false
-    public static boolean isDebug = IsDeBugUtils.isInDebug(BaseApplication.getBaseApplication());
+    public static boolean isDebug = IsDeBugUtils.isInDebug(MyBaseApplication.getBaseApplication());
     private static final String TAG = "Demo_Chen_Test=";
+
 
 
     // 下面四个是默认tag的函数
