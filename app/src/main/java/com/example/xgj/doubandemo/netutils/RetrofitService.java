@@ -19,6 +19,7 @@ public class RetrofitService {
 
     private Retrofit retrofit;
     private ApiInterface apiService;
+    private OkHttpClient client;
 
 
     private RetrofitService() {
@@ -48,11 +49,17 @@ public class RetrofitService {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         // 配置 client
-        OkHttpClient client = new OkHttpClient.Builder()
+        // 设置拦截器
+        // 是否重试
+        // 连接超时事件 设置为10s
+        // 读取超时时间  设置为10s
+        //                .addNetworkInterceptor(mTokenInterceptor)   // 自动附加 token
+        //                .authenticator(mAuthenticator)              // 认证失败自动刷新token
+        client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)                // 设置拦截器
                 .retryOnConnectionFailure(true)             // 是否重试
-                .connectTimeout(5, TimeUnit.SECONDS)        // 连接超时事件
-                .readTimeout(5, TimeUnit.SECONDS)           // 读取超时时间
+                .connectTimeout(10, TimeUnit.SECONDS)        // 连接超时事件 设置为10s
+                .readTimeout(10, TimeUnit.SECONDS)           // 读取超时时间  设置为10s
                 //                .addNetworkInterceptor(mTokenInterceptor)   // 自动附加 token
                 //                .authenticator(mAuthenticator)              // 认证失败自动刷新token
                 .build();
@@ -63,6 +70,7 @@ public class RetrofitService {
                 .baseUrl(ApiInterface.HOST)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(client)
                 .build();
     }
 
@@ -104,7 +112,7 @@ public class RetrofitService {
     //                .compose(RxUtils.<List<VideoEntity.ItemsBean>>rxSchedulerHelper());
     //    }
 
-    public Observable<Object> getTextData(int page){
+    public Observable<Object> getTextData(int page) {
         return apiService.getTexts(page)
                 .flatMap(new Function<Object, ObservableSource<?>>() {
                     @Override
