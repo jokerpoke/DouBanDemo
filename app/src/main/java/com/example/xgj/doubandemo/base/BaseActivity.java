@@ -10,9 +10,9 @@ public abstract class BaseActivity extends MyBaseActivity {
         ButterKnife.bind(this);
     }
 
-    //    @Override
+//        @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_base);
+////        setContentView(R.layout.activity_base);
 //    }
 }

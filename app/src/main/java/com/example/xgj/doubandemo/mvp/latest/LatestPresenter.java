@@ -10,20 +10,16 @@ public class LatestPresenter implements LatestContract.Presenter {
 
 
 
-    public void subscribe(int page) {
 
-    }
 
 
     @Override
-    public void subscribe() {
+    public void updata() {
 
     }
 
     @Override
-    public void unsubscribe() {
+    public void upView() {
 
     }
-
-
 }

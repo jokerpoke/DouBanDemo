@@ -1,6 +1,6 @@
 package com.example.xgj.doubandemo.mvp.textnews;
 
-import com.example.xgj.doubandemo.base.BasePresenter;
+import com.example.xgj.doubandemo.base.BasePresenterInterface;
 import com.example.xgj.doubandemo.base.BaseView;
 
 /**
@@ -13,8 +13,9 @@ public interface TextNewsContract {
 
     }
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenterInterface {
 
 
     }
 }
+

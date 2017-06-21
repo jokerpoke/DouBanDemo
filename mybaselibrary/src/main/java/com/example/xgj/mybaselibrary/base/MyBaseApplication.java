@@ -1,6 +1,7 @@
 package com.example.xgj.mybaselibrary.base;
 
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
@@ -26,16 +27,16 @@ public class MyBaseApplication extends Application {
         super.onCreate();
         this.myBaseApplication = this;
         IsDeBugUtils.isInDebug(this);// debug包为true，release包为false
-//        if (NetUtil.isNetConnection(myBaseApplication)) {
-//            //网络请求操作
-//
-//        }
-//        //        else if (NetUtil.isWifiConnection(baseApplication)) {
-//        //            showToast("你现在正在非WIFI下浏览，请注意！", 1);
-//        //        }
-//        else {
-//            showToast("请检查网络是否已连接", 1);
-//        }
+        //        if (NetUtil.isNetConnection(myBaseApplication)) {
+        //            //网络请求操作
+        //
+        //        }
+        //        //        else if (NetUtil.isWifiConnection(baseApplication)) {
+        //        //            showToast("你现在正在非WIFI下浏览，请注意！", 1);
+        //        //        }
+        //        else {
+        //            showToast("请检查网络是否已连接", 1);
+        //        }
 
 
     }
@@ -85,6 +86,11 @@ public class MyBaseApplication extends Application {
         });
     }
 
+    public ProgressDialog pd;
+
+    public ProgressDialog progressDialog() {
+        return pd = new ProgressDialog(MyBaseApplication.getBaseApplication());
+    }
 
     //
     //    public static void showToast(Context context,

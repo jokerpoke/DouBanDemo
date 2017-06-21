@@ -1,16 +1,13 @@
 package com.example.xgj.doubandemo.mvp.latest;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.example.xgj.doubandemo.R;
 import com.example.xgj.doubandemo.base.BaseActivity;
 
-import butterknife.BindView;
-
 public class LatestActivity extends BaseActivity {
-    @BindView(R.id.LatestActivity_tv_testId)
-    TextView tv_testid;
+//    @BindView(R.id.LatestActivity_tv_testId)
+//    TextView tv_testid;
 
     private LatestPresenter latestPresenter;
 

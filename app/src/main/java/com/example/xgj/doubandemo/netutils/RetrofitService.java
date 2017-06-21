@@ -1,126 +1,76 @@
 package com.example.xgj.doubandemo.netutils;
 
-import com.example.xgj.mybaselibrary.utils.RxUtils;
-
-import java.util.concurrent.TimeUnit;
-
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.GsonConverterFactory;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
+
+/**
+ * Created by chen on 2017/6/19.
+ */
+
+public interface RetrofitService {
+    //存放地址
+
+    //    public static  final String TEST_URL="https://api.github.com/users/Guolei1130";
+
+    //    @GET("/article/list/pic")
+    //    Observable<PicEntity> getPics(@Query("page") int page);
 
 
-public class RetrofitService {
-
-    private Retrofit retrofit;
-    private ApiInterface apiService;
-    private OkHttpClient client;
-
-
-    private RetrofitService() {
-        init();
-    }
-
-
-    public static class SingleInstanceHolder {
-        private static RetrofitService retrofitService = new RetrofitService();
-
-    }
-
-    public static RetrofitService getInstance() {
-        return SingleInstanceHolder.retrofitService;
-    }
-
-
-    private void init() {
-        initOkHttp();
-        initRetrofit();
-        apiService = retrofit.create(ApiInterface.class);
-    }
-
-
-    private void initOkHttp() {
-        // 设置 Log 拦截器，可以用于以后处理一些异常情况
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        // 配置 client
-        // 设置拦截器
-        // 是否重试
-        // 连接超时事件 设置为10s
-        // 读取超时时间  设置为10s
-        //                .addNetworkInterceptor(mTokenInterceptor)   // 自动附加 token
-        //                .authenticator(mAuthenticator)              // 认证失败自动刷新token
-        client = new OkHttpClient.Builder()
-                .addInterceptor(interceptor)                // 设置拦截器
-                .retryOnConnectionFailure(true)             // 是否重试
-                .connectTimeout(10, TimeUnit.SECONDS)        // 连接超时事件 设置为10s
-                .readTimeout(10, TimeUnit.SECONDS)           // 读取超时时间  设置为10s
-                //                .addNetworkInterceptor(mTokenInterceptor)   // 自动附加 token
-                //                .authenticator(mAuthenticator)              // 认证失败自动刷新token
-                .build();
-    }
-
-    private void initRetrofit() {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(ApiInterface.HOST)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(client)
-                .build();
-    }
-
-
+    //    // 最新
+    //    public final static String URL_LATEST ="/article/list/latest";
     //
-    //    public Observable<List<TextEntity.ItemsBean>> getTextData(int page)
-    //    {
-    //        return apiService.getTexts(page)
-    //                .flatMap(new Function<TextEntity, Observable<List<TextEntity.ItemsBean>>>() {
-    //                    @Override
-    //                    public Observable<List<TextEntity.ItemsBean>> apply(TextEntity textEntity) throws Exception {
-    //                        return Observable.just(textEntity.getItems());
-    //                    }
-    //                })
-    //                .compose(RxUtils.<List<TextEntity.ItemsBean>>rxSchedulerHelper());
-    //    }
+    //    // 图片
+    //    public final static String URL_PIC= "/article/list/pic";
     //
-    //    public Observable<List<PicEntity.ItemsBean>> getPicData(int page)
-    //    {
-    //        return apiService.getPics(page)
-    //                .flatMap(new Function<PicEntity, Observable<List<PicEntity.ItemsBean>>>() {
-    //                    @Override
-    //                    public Observable<List<PicEntity.ItemsBean>> apply(@NonNull PicEntity picEntity) throws Exception {
-    //                        return Observable.just(picEntity.getItems());
-    //                    }
-    //                })
-    //                .compose(RxUtils.<List<PicEntity.ItemsBean>>rxSchedulerHelper());
-    //    }
+    //    // 视频
+    //    public final static String URL_VIDEO = "/article/list/video";
     //
-    //    public Observable<List<VideoEntity.ItemsBean>> getVideoData(int page)
-    //    {
-    //        return apiService.getVideos(page)
-    //                .flatMap(new Function<VideoEntity, Observable<List<VideoEntity.ItemsBean>>>() {
-    //                    @Override
-    //                    public Observable<List<VideoEntity.ItemsBean>> apply(@NonNull VideoEntity videoEntity) throws Exception {
-    //                        return Observable.just(videoEntity.getItems());
-    //                    }
-    //                })
-    //                .compose(RxUtils.<List<VideoEntity.ItemsBean>>rxSchedulerHelper());
-    //    }
+    //    // 文本
+    //    public final static String URL_TEXT = "/article/list/text";
+    //
+    //    /************************查询参数都为 page ***********************************/
+    //
+    //    //头像获取(+ id掉后4位 + "/" + id + "/thumb/" + icon图片名.jpg)
+    //    //userIcon======http://pic.qiushibaike.com/system/avtnew/1499/14997026/thumb/20140404194843.jpg
+    //    public final static String URL_USER_ICON="http://pic.qiushibaike.com/system/avtnew/%d/%d/thumb/%s";
+    //
+    //    //内容图片获取(+图片名所有数字去掉后4位+"/"+图片名从数字开始数全部+"/"+"/"+small或者medium+"/"+图片名)
+    //    //====图片Url=http://pic.qiushibaike.com/system/pictures/7128/71288069/small/app71288069.jpg
+    //    public final static String URL_IMAGE= "http://pic.qiushibaike.com/system/pictures/%s/%s/%s/%s";
+    //    @GET("/article/list/text")
+    //    Observable<TextEntity> getTexts(@Query("page") int page);
+    //
+    //    @GET("/article/list/pic")
+    //    Observable<PicEntity> getPics(@Query("page") int page);
+    //
+    //    @GET("/article/list/video")
+    //    Observable<VideoEntity> getVideos(@Query("page") int page);
+    @GET("/article/list/text")
+    Observable<Object> getTexts(@Query("page") int page);
 
-    public Observable<Object> getTextData(int page) {
-        return apiService.getTexts(page)
-                .flatMap(new Function<Object, ObservableSource<?>>() {
-                    @Override
-                    public ObservableSource<?> apply(@NonNull Object o) throws Exception {
-                        return Observable.just(o);
-                    }
-                })
-                .compose(RxUtils.<Object>rxSchedulerHelper());
-    }
+    @FormUrlEncoded
+    @POST
+    Observable<Object> getHH(@Query("bizType") String listChannel);
 
+
+//    //?requestData=eyJ2ZXJzaW9uX25hbWUiOiIxLjEuMiIsImN0bCI6InN0b3JlIiwiaXNfcmMiOiIwIiwic3VwcGxp%0AZXJfdHlwZSI6IjEiLCJmcm9tIjoiYW5kcm9pZCIsImNpdHlfaWQiOjIzLCJkYXRhX2lkIjoyMywi%0AcHdkIjoiOTZlNzkyMTg5NjVlYjcyYzkyYTU0OWRkNWEzMzAxMTIiLCJ0b2tlbiI6IjM0QkEyRDFB%0ALTlFQ0ItMEJBQi0xQ0VFLTFEMjhFNjQ3M0U4MCIsImVtYWlsIjoiMTIxMzgiLCJzZXNzX2lkIjoi%0AYzIzbnV1Zm9vYjVmMzgwamRlbzJ0Ymw3ZTUiLCJ1c2VyX21vYmlsZSI6IjE1ODY4ODY3NzQyIiwi%0AdXNlcl9pZCI6MTAwLCJhY3QiOiJpbmRleCJ9%0A&i_type=0&r_type=1&ctl=store&act=index
+//    @POST("/yyk/mapi/index.php")
+//    Observable<Object> getTexts(@Query("version_name") String version_name,
+//                                @Query("ctl") String ctl,
+//                                @Query("is_rc") String is_rc,
+//                                @Query("supplier_type") String supplier_type,
+//                                @Query("from")String from,
+//                                @Query("city_id")String city_id,
+//                                @Query("data_id") String data_id,
+//                                @Query("pwd")String pwd,
+//                                @Query("token") String token,
+//                                @Query("email")String email,
+//                                @Query("sess_id")String sess_id,
+//                                @Query("user_mobile")String user_mobile,
+//                                @Query("user_id")String user_id,
+//                                @Query("act") String act
+//                                );
 }

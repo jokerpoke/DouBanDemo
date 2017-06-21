@@ -1,6 +1,6 @@
 package com.example.xgj.doubandemo.mvp.latest;
 
-import com.example.xgj.doubandemo.base.BasePresenter;
+import com.example.xgj.doubandemo.base.BasePresenterInterface;
 import com.example.xgj.doubandemo.base.BaseView;
 
 /**
@@ -13,7 +13,7 @@ public interface LatestContract {
 
     }
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenterInterface {
 
     }
 }
