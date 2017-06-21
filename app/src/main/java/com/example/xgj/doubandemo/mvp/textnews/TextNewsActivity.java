@@ -2,7 +2,9 @@ package com.example.xgj.doubandemo.mvp.textnews;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.example.xgj.doubandemo.R;
 import com.example.xgj.doubandemo.base.BaseActivity;
@@ -17,7 +19,10 @@ public class TextNewsActivity extends BaseActivity implements TextNewsContract.V
     SwipeRefreshLayout srf_layout;
     int page = 1;
 
-    private static final String TAG  = "11";
+    @BindView(R.id.tv_text)
+    TextView tv_text;
+
+    private static final String TAG  = "TextNewsActivity";
 
 
     private TextNewsPresenter textNewsPresenter;
@@ -39,6 +44,11 @@ public class TextNewsActivity extends BaseActivity implements TextNewsContract.V
 
     @Override
     protected void initView() {
+        rv_list.setHasFixedSize(true);
+        rv_list.setLayoutManager(new LinearLayoutManager(this));
+        rv_list.setAdapter(null);
+
+
         srf_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -63,6 +73,7 @@ public class TextNewsActivity extends BaseActivity implements TextNewsContract.V
     @Override
     public void getModel(Object o) {
         LogsUtils.d(o.toString());
+        tv_text.setText(o.toString());
     }
 
     @Override
