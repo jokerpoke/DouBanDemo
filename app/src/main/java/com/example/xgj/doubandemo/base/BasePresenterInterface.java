@@ -5,9 +5,9 @@ package com.example.xgj.doubandemo.base;
  */
 
 public interface BasePresenterInterface {
-    public void updata();
+    void upModel(Object o);
 
-    public void upView();
+    void upView(Object o);
 
 
 }

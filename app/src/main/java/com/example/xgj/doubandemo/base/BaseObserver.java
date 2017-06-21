@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable;
  * Created by chen on 2017/6/21.
  */
 
-public abstract class BaseObserver<T> implements Observer<Object> {
+public abstract class BaseObserver<T>   implements Observer<Object> {
     private Context mContext;
     private ProgressDialog mDialog;
     private Disposable mDisposable;
@@ -35,6 +35,7 @@ public abstract class BaseObserver<T> implements Observer<Object> {
     @Override
     public void onSubscribe(Disposable d) {
         mDisposable = d;
+
     }
 
     @Override
@@ -68,6 +69,7 @@ public abstract class BaseObserver<T> implements Observer<Object> {
     }
 
     protected abstract void onHandleSuccess(T t);
+
 
     void onHandleError(int code, String message) {
         Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();

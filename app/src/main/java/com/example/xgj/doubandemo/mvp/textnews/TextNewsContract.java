@@ -10,7 +10,7 @@ import com.example.xgj.doubandemo.base.BaseView;
 public interface TextNewsContract {
 
     interface View extends BaseView<Presenter> {
-
+        void getModel(Object o);
     }
 
     interface Presenter extends BasePresenterInterface {

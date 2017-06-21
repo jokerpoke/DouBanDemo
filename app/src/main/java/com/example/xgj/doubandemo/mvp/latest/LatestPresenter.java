@@ -7,19 +7,16 @@ package com.example.xgj.doubandemo.mvp.latest;
 public class LatestPresenter implements LatestContract.Presenter {
     private LatestContract.View mView;
 
-
-
-
-
-
-
     @Override
-    public void updata() {
+    public void upModel(Object o) {
 
     }
 
     @Override
-    public void upView() {
+    public void upView(Object o) {
 
     }
+
+
+
 }

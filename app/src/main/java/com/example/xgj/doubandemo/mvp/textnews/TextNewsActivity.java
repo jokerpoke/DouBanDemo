@@ -10,15 +10,18 @@ import com.example.xgj.mybaselibrary.utils.LogsUtils;
 
 import butterknife.BindView;
 
-public class TextNewsActivity extends BaseActivity implements TextNewsPresenter.TextNewsPresenterCallBack {
+public class TextNewsActivity extends BaseActivity implements TextNewsContract.View {
     @BindView(R.id.LatestActivity_rvlist)
     RecyclerView rv_list;
     @BindView(R.id.LatestActivity_srflayout)
     SwipeRefreshLayout srf_layout;
-    int page=1;
+    int page = 1;
+
+    private static final String TAG  = "11";
 
 
     private TextNewsPresenter textNewsPresenter;
+    private TextNewsContract.Presenter presenter;
 
 
     @Override
@@ -30,8 +33,7 @@ public class TextNewsActivity extends BaseActivity implements TextNewsPresenter.
     @Override
     protected void onPresenter() {
         textNewsPresenter = new TextNewsPresenter(this);
-
-        textNewsPresenter.updataModel(page);
+        textNewsPresenter.upModel(page);
 
     }
 
@@ -40,8 +42,8 @@ public class TextNewsActivity extends BaseActivity implements TextNewsPresenter.
         srf_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (srf_layout.isRefreshing()){
-                    textNewsPresenter.updataModel(++page);
+                if (srf_layout.isRefreshing()) {
+                    textNewsPresenter.upModel(++page);
                 }
             }
         });
@@ -60,8 +62,12 @@ public class TextNewsActivity extends BaseActivity implements TextNewsPresenter.
     //得到presenter解析回调的数据
     @Override
     public void getModel(Object o) {
-
         LogsUtils.d(o.toString());
+    }
+
+    @Override
+    public void setPresenter(TextNewsContract.Presenter presenter) {
+        this.presenter = presenter;
     }
 
 

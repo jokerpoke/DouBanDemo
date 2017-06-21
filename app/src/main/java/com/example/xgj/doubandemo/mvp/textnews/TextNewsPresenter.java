@@ -1,77 +1,69 @@
 package com.example.xgj.doubandemo.mvp.textnews;
 
 import com.example.xgj.doubandemo.base.BasePresenter;
-import com.example.xgj.doubandemo.mvp.latest.LatestContract;
 
 /**
  * Created by chen on 2017/6/20.
  */
 
-public class TextNewsPresenter  extends BasePresenter implements LatestContract.Presenter {
-    private LatestContract.View mView;
-    private TextNewsPresenterCallBack callBack;
+public class TextNewsPresenter extends BasePresenter implements TextNewsContract.Presenter {
+    private TextNewsContract.View mView;
     private TextNewsModel textNewsModel;
 
 
-    public void setCallBack(TextNewsPresenterCallBack callBack) {
-        this.callBack = callBack;
-    }
 
-    public TextNewsPresenter(TextNewsPresenterCallBack callBack) {
+
+
+    public TextNewsPresenter(TextNewsContract.View mView) {
         this.textNewsModel=new TextNewsModel(this);
-        this.callBack = callBack;
+        this.mView = mView;
+        mView.setPresenter(this);
     }
 
-    public void updataModel(int page) {
 
-//        subscribe(page);
-        textNewsModel.subscribe(page);
-    }
+//    public void updataModel(int page) {
 
-    public void subscribe(int page) {
-//        RetrofitService
-//                .getInstance()
-//                .getTextData(page)
-//                .subscribe(new Observer<Object>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(Object o) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        LogsUtils.e("TextNewsPresenter", e.toString());
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
-    }
+        //        subscribe(page);
 
+//    }
+
+//    public void subscribe(int page) {
+        //        RetrofitService
+        //                .getInstance()
+        //                .getTextData(page)
+        //                .subscribe(new Observer<Object>() {
+        //                    @Override
+        //                    public void onSubscribe(Disposable d) {
+        //
+        //                    }
+        //
+        //                    @Override
+        //                    public void onNext(Object o) {
+        //
+        //                    }
+        //
+        //                    @Override
+        //                    public void onError(Throwable e) {
+        //                        LogsUtils.e("TextNewsPresenter", e.toString());
+        //                    }
+        //
+        //                    @Override
+        //                    public void onComplete() {
+        //
+        //                    }
+        //                });
+//    }
 
 
     @Override
-    public void updata() {
-
+    public void upModel(Object o) {
+        textNewsModel.subscribe((int) o);
     }
 
     @Override
-    public void upView() {
-
-    }
     public void upView(Object o) {
-        callBack.getModel(o);
+        mView.getModel(o);
     }
 
-    public interface TextNewsPresenterCallBack {
-        void getModel(Object o);
-    }
 
 }
