@@ -1,12 +1,11 @@
 package com.example.xgj.mybaselibrary.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class NetworkUtil {
-    public static boolean isNetworkAvailable(Activity activity) {
+    public static boolean isNetworkAvailable(Context activity) {
         Context context = activity.getApplicationContext();
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 

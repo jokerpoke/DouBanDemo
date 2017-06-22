@@ -51,7 +51,6 @@ public class TextNewsActivity extends BaseActivity implements TextNewsContract.V
     protected void onPresenter() {
         textNewsPresenter = new TextNewsPresenter(this);
         textNewsPresenter.upModel(page);
-
     }
 
     @Override
@@ -89,7 +88,7 @@ public class TextNewsActivity extends BaseActivity implements TextNewsContract.V
         o1 = (List<Ship>) o;
         textNewsAdapter.addAll(o1);
         Log.d(TAG, "getModel: " + o1.get(0).getTitle());
-
+        //pd.dismiss();
     }
 
     @Override

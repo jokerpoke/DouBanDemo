@@ -22,27 +22,29 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
     private final int SUCCESS_CODE = 1;
 
 
-    public BaseObserver(Context context, ProgressDialog dialog) {
+    public BaseObserver(Context context) {
         mContext = context;
-        mDialog = dialog;
-
+        mDialog = new ProgressDialog(context);
+        mDialog.setMessage("数据正在加载。");
         mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
                 mDisposable.dispose();
             }
         });
+        mDialog.show();
     }
 
     @Override
     public void onSubscribe(Disposable d) {
         mDisposable = d;
+
     }
 
     @Override
     public void onNext(BaseEntity<T> value) {
-        if (value.getRet() == SUCCESS_CODE&&"成功".equals(value.getMsg())) {
-            T t =  value.getData();
+        if (value.getRet() == SUCCESS_CODE && "成功".equals(value.getMsg())) {
+            T t = value.getData();
             onHandleSuccess(t);
         } else {
             onHandleError(value.getRet(), value.getMsg());

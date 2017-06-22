@@ -1,9 +1,9 @@
 package com.example.xgj.doubandemo.mvp.textnews;
 
+import com.example.xgj.doubandemo.base.BaseActivity;
 import com.example.xgj.doubandemo.base.BaseModel;
 import com.example.xgj.doubandemo.base.BaseObserver;
 import com.example.xgj.doubandemo.netutils.RetrofitFactory;
-import com.example.xgj.mybaselibrary.base.MyBaseApplication;
 import com.example.xgj.mybaselibrary.utils.RxUtils;
 
 /**
@@ -23,7 +23,7 @@ public class TextNewsModel extends BaseModel {
         //        observable = RetrofitFactory.getInstance().initRetrofit().getDatas("6000000395","w","15");
         observable = RetrofitFactory.getInstance().initRetrofit().getAllVedio(true);
         //        observable = RetrofitFactory.getInstance().initRetrofit().getTexts(1);
-        observable.compose(RxUtils.rxSchedulerHelper()).subscribe(new BaseObserver(MyBaseApplication.getBaseApplication(), MyBaseApplication.getBaseApplication().progressDialog()) {
+        observable.compose(RxUtils.rxSchedulerHelper()).subscribe(new BaseObserver(BaseActivity.mcontext) {
 
 
 
