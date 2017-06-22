@@ -18,7 +18,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 public class RetrofitFactory {
 
     //基础地址
-    public final static String HOST = "http://m2.qiushibaike.com";
+//    public final static String HOST = "http://m2.qiushibaike.com";
+    public final static String HOST = "http://lanzhifu.qingyutec.com";
+//    public final static String HOST = "http://lanzhifu.qingyutec.com:8085/NewPhonePospInterface/T1TransDirConsumeGaoSuServlet";
 
     private Retrofit retrofit;
     private RetrofitService apiService;

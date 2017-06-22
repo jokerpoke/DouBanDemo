@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.xgj.mybaselibrary.base.BaseEntity;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -13,7 +15,7 @@ import io.reactivex.disposables.Disposable;
  * Created by chen on 2017/6/21.
  */
 
-public abstract class BaseObserver<T> implements Observer<T> {
+public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
     private Context mContext;
     private ProgressDialog mDialog;
     private Disposable mDisposable;
@@ -38,13 +40,13 @@ public abstract class BaseObserver<T> implements Observer<T> {
     }
 
     @Override
-    public void onNext(T value) {
-//        if (value.getCode() == SUCCESS_CODE) {
-//            T t = value.getData();
-            onHandleSuccess(value);
-//        } else {
-//            onHandleError(value.getCode(), value.getMessage());
-//        }
+    public void onNext(BaseEntity<T> value) {
+        if (value.getCode() == SUCCESS_CODE) {
+            T t = value.getData();
+            onHandleSuccess(t);
+        } else {
+            onHandleError(value.getCode(), value.getMessage());
+        }
     }
 
     @Override
