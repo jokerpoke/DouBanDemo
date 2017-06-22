@@ -4,11 +4,17 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
+import android.util.Log;
 
 import com.example.xgj.doubandemo.R;
+import com.example.xgj.doubandemo.adpater.TextNewsAdapter;
 import com.example.xgj.doubandemo.base.BaseActivity;
-import com.example.xgj.mybaselibrary.utils.LogsUtils;
+import com.example.xgj.doubandemo.bean.Jinmimi;
+import com.example.xgj.doubandemo.bean.Ship;
+import com.example.xgj.doubandemo.bean.TextNewsEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -17,16 +23,22 @@ public class TextNewsActivity extends BaseActivity implements TextNewsContract.V
     RecyclerView rv_list;
     @BindView(R.id.LatestActivity_srflayout)
     SwipeRefreshLayout srf_layout;
+
     int page = 1;
 
-    @BindView(R.id.tv_text)
-    TextView tv_text;
+    private TextNewsAdapter textNewsAdapter;
 
-    private static final String TAG  = "TextNewsActivity";
+    //    @BindView(R.id.tv_text)
+    //    TextView tv_text;
+
+    private static final String TAG = "TextNewsActivity";
 
 
     private TextNewsPresenter textNewsPresenter;
     private TextNewsContract.Presenter presenter;
+    private List<Jinmimi> list = new ArrayList<>();
+    private List<TextNewsEntity> items;
+    private List<Ship> o1 = new ArrayList<>();
 
 
     @Override
@@ -46,7 +58,8 @@ public class TextNewsActivity extends BaseActivity implements TextNewsContract.V
     protected void initView() {
         rv_list.setHasFixedSize(true);
         rv_list.setLayoutManager(new LinearLayoutManager(this));
-        rv_list.setAdapter(null);
+        textNewsAdapter = new TextNewsAdapter(o1, TextNewsActivity.this);
+        rv_list.setAdapter(textNewsAdapter);
 
 
         srf_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -72,8 +85,11 @@ public class TextNewsActivity extends BaseActivity implements TextNewsContract.V
     //得到presenter解析回调的数据
     @Override
     public void getModel(Object o) {
-        LogsUtils.d(o.toString());
-        tv_text.setText(o.toString());
+
+        o1 = (List<Ship>) o;
+        textNewsAdapter.addAll(o1);
+        Log.d(TAG, "getModel: " + o1.get(0).getTitle());
+
     }
 
     @Override

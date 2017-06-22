@@ -1,6 +1,13 @@
 package com.example.xgj.doubandemo.netutils;
 
+import com.example.xgj.doubandemo.bean.Jinmimi;
+import com.example.xgj.doubandemo.bean.Ship;
+import com.example.xgj.mybaselibrary.base.BaseEntity;
+
+import java.util.List;
+
 import io.reactivex.Observable;
+import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -49,37 +56,22 @@ public interface RetrofitService {
     //    @GET("/article/list/video")
     //    Observable<VideoEntity> getVideos(@Query("page") int page);
     @GET("/article/list/text")
-    Observable<Object> getTexts(@Query("page") int page);
+    Observable<BaseEntity<Object>> getTexts(@Query("page") int page);
 
     @FormUrlEncoded
     @POST
     Observable<Object> getHH(@Query("bizType") String listChannel);
 
 
-    //    //?requestData=eyJ2ZXJzaW9uX25hbWUiOiIxLjEuMiIsImN0bCI6InN0b3JlIiwiaXNfcmMiOiIwIiwic3VwcGxp%0AZXJfdHlwZSI6IjEiLCJmcm9tIjoiYW5kcm9pZCIsImNpdHlfaWQiOjIzLCJkYXRhX2lkIjoyMywi%0AcHdkIjoiOTZlNzkyMTg5NjVlYjcyYzkyYTU0OWRkNWEzMzAxMTIiLCJ0b2tlbiI6IjM0QkEyRDFB%0ALTlFQ0ItMEJBQi0xQ0VFLTFEMjhFNjQ3M0U4MCIsImVtYWlsIjoiMTIxMzgiLCJzZXNzX2lkIjoi%0AYzIzbnV1Zm9vYjVmMzgwamRlbzJ0Ymw3ZTUiLCJ1c2VyX21vYmlsZSI6IjE1ODY4ODY3NzQyIiwi%0AdXNlcl9pZCI6MTAwLCJhY3QiOiJpbmRleCJ9%0A&i_type=0&r_type=1&ctl=store&act=index
-    //    @POST("/yyk/mapi/index.php")
-    //    Observable<Object> getTexts(@Query("version_name") String version_name,
-    //                                @Query("ctl") String ctl,
-    //                                @Query("is_rc") String is_rc,
-    //                                @Query("supplier_type") String supplier_type,
-    //                                @Query("from")String from,
-    //                                @Query("city_id")String city_id,
-    //                                @Query("data_id") String data_id,
-    //                                @Query("pwd")String pwd,
-    //                                @Query("token") String token,
-    //                                @Query("email")String email,
-    //                                @Query("sess_id")String sess_id,
-    //                                @Query("user_mobile")String user_mobile,
-    //                                @Query("user_id")String user_id,
-    //                                @Query("act") String act
-    //                                );
-//    @FormUrlEncoded
-    @POST(":8085/NewPhonePospInterface/QQPayServlet")
-    Observable<Object> getDatas(@Query("saruLruid") String saruLruid,
-                                @Query("type") String type,
-                                @Query("transAmt") String transAmt
+    @FormUrlEncoded
+    @POST("NewPhonePospInterface/QQPayServlet")
+    Observable<BaseEntity<Jinmimi>> getDatas(@Field("saruLruid") String saruLruid,
+                                 @Field("type") String type,
+                                 @Field("transAmt") String transAmt
     );
-//        @GET
-//        Observable<Object> getDatas(
-//        );
+
+    @FormUrlEncoded
+    @POST("AppFiftyToneGraph/videoLink")
+    Observable<BaseEntity<List<Ship>>> getAllVedio(@Field("once_no") boolean once_no);
+
 }

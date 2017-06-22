@@ -1,7 +1,6 @@
 package com.example.xgj.doubandemo.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 项目:RxJavaRetrofitDemo
@@ -10,7 +9,7 @@ import java.util.List;
  * 时间:16:29
  */
 
-public class TextEntity implements Serializable {
+public class TextNewsEntity<T> implements Serializable {
 
     /**
      * count : 30
@@ -26,7 +25,7 @@ public class TextEntity implements Serializable {
     private int total;
     private int page;
     private int refresh;
-    private List<ItemsBean> items;
+//    private List<ItemsBean> items;
 
     public int getCount() {
         return count;
@@ -68,319 +67,17 @@ public class TextEntity implements Serializable {
         this.refresh = refresh;
     }
 
-    public List<ItemsBean> getItems() {
-        return items;
-    }
 
-    public void setItems(List<ItemsBean> items) {
-        this.items = items;
-    }
 
-    public static class ItemsBean {
-        /**
-         * format : word
-         * image :
-         * published_at : 1489557301
-         * tag :
-         * user : {"avatar_updated_at":1489566413,"medium":"//pic.qiushibaike.com/system/avtnew/2931/29314260/medium/2017031516265292.JPEG","thumb":"//pic.qiushibaike.com/system/avtnew/2931/29314260/thumb/2017031516265292.JPEG","last_visited_at":1436268691,"created_at":1436268691,"updated_at":1442642991,"state":"active","role":"","login":"(绯楀悕鏄憲)~璐濊礉","last_device":"android_7.1.1","id":29314260,"icon":"2017031516265292.JPEG"}
-         * image_size : null
-         * id : 118722033
-         * votes : {"down":-4,"up":235}
-         * created_at : 1489551685
-         * content : 鍘绘壘闂鸿湝鐜╁効锛岀湅鍒伴椇铚滆�佸叕甯︾潃鍎垮瓙杩樻湁浠栦滑瀹堕噾姣涘湪闄㈠瓙鐜╂墧椋炵洏鈥︹�n鐪嬬潃鑲ヨ偉鐨勯噾姣涙垜璇粹�滃ソ涔呮病鍚冭繃鐙楄倝浜嗭紝锛屸�漒n闂鸿湝鍎垮瓙鐬呬簡鎴戜竴鐪兼妸椋炵洏涓㈠嚭鍘烩�滈樋濮紝浣犲幓鎹″洖鏉ワ紝锛屸�漒n鎴戣蛋杩囧幓鎹¤捣椋炵洏閫掔粰浠�:鈥滀负鍟ヨ鎴戝幓鎹＄洏瀛愶紵锛熲�漒n鈥滀綘鏁㈠悆鎴戝鐙楁垜灏辫浣犳崱椋炵洏锛侊紒鈥漒n灏� 鐜�
-         * state : publish
-         * comments_count : 12
-         * allow_comment : true
-         * share_count : 3
-         * type : hot
-         */
 
-        private String format;
-        private String image;
-        private int published_at;
-        private String tag;
-        private UserBean user;
-        private Object image_size;
-        private int id;
-        private VotesBean votes;
-        private int created_at;
-        private String content;
-        private String state;
-        private int comments_count;
-        private boolean allow_comment;
-        private int share_count;
-        private String type;
-
-        public String getFormat() {
-            return format;
-        }
-
-        public void setFormat(String format) {
-            this.format = format;
-        }
-
-        public String getImage() {
-            return image;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
-        }
-
-        public int getPublished_at() {
-            return published_at;
-        }
-
-        public void setPublished_at(int published_at) {
-            this.published_at = published_at;
-        }
-
-        public String getTag() {
-            return tag;
-        }
-
-        public void setTag(String tag) {
-            this.tag = tag;
-        }
-
-        public UserBean getUser() {
-            return user;
-        }
-
-        public void setUser(UserBean user) {
-            this.user = user;
-        }
-
-        public Object getImage_size() {
-            return image_size;
-        }
-
-        public void setImage_size(Object image_size) {
-            this.image_size = image_size;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public VotesBean getVotes() {
-            return votes;
-        }
-
-        public void setVotes(VotesBean votes) {
-            this.votes = votes;
-        }
-
-        public int getCreated_at() {
-            return created_at;
-        }
-
-        public void setCreated_at(int created_at) {
-            this.created_at = created_at;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public String getState() {
-            return state;
-        }
-
-        public void setState(String state) {
-            this.state = state;
-        }
-
-        public int getComments_count() {
-            return comments_count;
-        }
-
-        public void setComments_count(int comments_count) {
-            this.comments_count = comments_count;
-        }
-
-        public boolean isAllow_comment() {
-            return allow_comment;
-        }
-
-        public void setAllow_comment(boolean allow_comment) {
-            this.allow_comment = allow_comment;
-        }
-
-        public int getShare_count() {
-            return share_count;
-        }
-
-        public void setShare_count(int share_count) {
-            this.share_count = share_count;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public static class UserBean {
-            /**
-             * avatar_updated_at : 1489566413
-             * medium : //pic.qiushibaike.com/system/avtnew/2931/29314260/medium/2017031516265292.JPEG
-             * thumb : //pic.qiushibaike.com/system/avtnew/2931/29314260/thumb/2017031516265292.JPEG
-             * last_visited_at : 1436268691
-             * created_at : 1436268691
-             * updated_at : 1442642991
-             * state : active
-             * role :
-             * login : (绯楀悕鏄憲)~璐濊礉
-             * last_device : android_7.1.1
-             * id : 29314260
-             * icon : 2017031516265292.JPEG
-             */
-
-            private int avatar_updated_at;
-            private String medium;
-            private String thumb;
-            private int last_visited_at;
-            private int created_at;
-            private int updated_at;
-            private String state;
-            private String role;
-            private String login;
-            private String last_device;
-            private int id;
-            private String icon;
-
-            public int getAvatar_updated_at() {
-                return avatar_updated_at;
-            }
-
-            public void setAvatar_updated_at(int avatar_updated_at) {
-                this.avatar_updated_at = avatar_updated_at;
-            }
-
-            public String getMedium() {
-                return medium;
-            }
-
-            public void setMedium(String medium) {
-                this.medium = medium;
-            }
-
-            public String getThumb() {
-                return thumb;
-            }
-
-            public void setThumb(String thumb) {
-                this.thumb = thumb;
-            }
-
-            public int getLast_visited_at() {
-                return last_visited_at;
-            }
-
-            public void setLast_visited_at(int last_visited_at) {
-                this.last_visited_at = last_visited_at;
-            }
-
-            public int getCreated_at() {
-                return created_at;
-            }
-
-            public void setCreated_at(int created_at) {
-                this.created_at = created_at;
-            }
-
-            public int getUpdated_at() {
-                return updated_at;
-            }
-
-            public void setUpdated_at(int updated_at) {
-                this.updated_at = updated_at;
-            }
-
-            public String getState() {
-                return state;
-            }
-
-            public void setState(String state) {
-                this.state = state;
-            }
-
-            public String getRole() {
-                return role;
-            }
-
-            public void setRole(String role) {
-                this.role = role;
-            }
-
-            public String getLogin() {
-                return login;
-            }
-
-            public void setLogin(String login) {
-                this.login = login;
-            }
-
-            public String getLast_device() {
-                return last_device;
-            }
-
-            public void setLast_device(String last_device) {
-                this.last_device = last_device;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getIcon() {
-                return icon;
-            }
-
-            public void setIcon(String icon) {
-                this.icon = icon;
-            }
-        }
-
-        public static class VotesBean {
-            /**
-             * down : -4
-             * up : 235
-             */
-
-            private int down;
-            private int up;
-
-            public int getDown() {
-                return down;
-            }
-
-            public void setDown(int down) {
-                this.down = down;
-            }
-
-            public int getUp() {
-                return up;
-            }
-
-            public void setUp(int up) {
-                this.up = up;
-            }
-        }
+    @Override
+    public String toString() {
+        return "TextNewsEntity{" +
+                "count=" + count +
+                ", err=" + err +
+                ", total=" + total +
+                ", page=" + page +
+                ", refresh=" + refresh +
+                '}';
     }
 }

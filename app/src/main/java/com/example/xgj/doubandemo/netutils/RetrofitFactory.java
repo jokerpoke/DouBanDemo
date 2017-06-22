@@ -19,7 +19,8 @@ public class RetrofitFactory {
 
     //基础地址
 //    public final static String HOST = "http://m2.qiushibaike.com";
-    public final static String HOST = "http://lanzhifu.qingyutec.com";
+//    public final static String HOST = "http://lanzhifu.qingyutec.com:8085/";
+    public final static String HOST = "http://www.izaodao.com/Api/";
 //    public final static String HOST = "http://lanzhifu.qingyutec.com:8085/NewPhonePospInterface/T1TransDirConsumeGaoSuServlet";
 
     private Retrofit retrofit;

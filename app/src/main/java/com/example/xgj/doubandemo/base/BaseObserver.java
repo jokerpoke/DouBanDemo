@@ -14,12 +14,12 @@ import io.reactivex.disposables.Disposable;
 /**
  * Created by chen on 2017/6/21.
  */
-
+//当格式符合要求时，使用Observer<BaseEntity<T>>
 public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
     private Context mContext;
     private ProgressDialog mDialog;
     private Disposable mDisposable;
-    private final int SUCCESS_CODE = 0;
+    private final int SUCCESS_CODE = 1;
 
 
     public BaseObserver(Context context, ProgressDialog dialog) {
@@ -41,11 +41,11 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
 
     @Override
     public void onNext(BaseEntity<T> value) {
-        if (value.getCode() == SUCCESS_CODE) {
-            T t = value.getData();
+        if (value.getRet() == SUCCESS_CODE&&"成功".equals(value.getMsg())) {
+            T t =  value.getData();
             onHandleSuccess(t);
         } else {
-            onHandleError(value.getCode(), value.getMessage());
+            onHandleError(value.getRet(), value.getMsg());
         }
     }
 
