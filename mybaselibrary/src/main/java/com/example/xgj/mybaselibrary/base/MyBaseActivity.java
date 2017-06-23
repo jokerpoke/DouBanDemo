@@ -25,6 +25,7 @@ public abstract class MyBaseActivity extends AppCompatActivity {
         initContentView(savedInstanceState);
         getButterKnifeBind();// 在外部调用ButterKnife.bind(this);
         //        setContentView(R.layout.activity_base);
+//        getToolbarLayoutId();
         init();
     }
 
@@ -101,6 +102,8 @@ public abstract class MyBaseActivity extends AppCompatActivity {
     }
 
     protected abstract int getResLayoutId(Bundle savedInstanceState);
+
+//    protected  abstract int getToolbarLayoutId();
 
     protected abstract void getButterKnifeBind();
 

@@ -2,11 +2,13 @@ package com.example.xgj.doubandemo.netutils;
 
 import android.os.Environment;
 
-import com.example.xgj.mybaselibrary.base.MyBaseApplication;
+import com.example.xgj.doubandemo.base.BaseActivity;
+import com.example.xgj.mybaselibrary.utils.LogsUtils;
 import com.example.xgj.mybaselibrary.utils.NetworkUtil;
 import com.example.xgj.mybaselibrary.utils.RxUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -31,7 +33,6 @@ public class RetrofitFactory {
     //    public final static String HOST = "http://m2.qiushibaike.com";
     //    public final static String HOST = "http://lanzhifu.qingyutec.com:8085/";
     public final static String HOST = "http://www.izaodao.com/Api/";
-    //    public final static String HOST = "http://lanzhifu.qingyutec.com:8085/NewPhonePospInterface/T1TransDirConsumeGaoSuServlet";
 
 
     private volatile static RetrofitFactory retrofitFactory;
@@ -75,6 +76,57 @@ public class RetrofitFactory {
     }
 
 
+
+    /**
+     * 设置返回数据的  Interceptor  判断网络   没网读取缓存
+     */
+    public Interceptor getInterceptor(){
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                if (!NetworkUtil.isNetworkAvailable(BaseActivity.mcontext)) {
+                    request = request.newBuilder()
+                            .cacheControl(CacheControl.FORCE_CACHE)
+                            .build();
+                }
+                return chain.proceed(request);
+            }
+        };
+    }
+
+
+    /**
+     * 设置连接器  设置缓存
+     */
+    public Interceptor getNetWorkInterceptor (){
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                Response response = chain.proceed(request);
+                if (NetworkUtil.isNetworkAvailable(BaseActivity.mcontext)) {
+                    int maxAge = 0 * 60;
+                    // 有网络时 设置缓存超时时间0个小时
+                    response.newBuilder()
+                            .header("Cache-Control", "public, max-age=" + maxAge)
+                            .removeHeader("Pragma")
+                            .build();
+                } else {
+                    // 无网络时，设置超时为1周
+                    int maxStale = 60 * 60 * 24 * 7;
+                    response.newBuilder()
+                            .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+                            .removeHeader("Pragma")
+                            .build();
+                }
+                return response;
+            }
+        };
+    }
+
+
+
     private void initOkHttp() {
 
 
@@ -93,39 +145,44 @@ public class RetrofitFactory {
 
 
 
-        //cache
-        Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = chain -> {
-            CacheControl.Builder cacheBuilder = new CacheControl.Builder();
-            cacheBuilder.maxAge(0, TimeUnit.SECONDS);
-            cacheBuilder.maxStale(365,TimeUnit.DAYS);
-            CacheControl cacheControl = cacheBuilder.build();
-            Request request = chain.request();
-            if(!NetworkUtil.isNetworkAvailable(MyBaseApplication.getBaseApplication())){
-                request = request.newBuilder()
-                        .cacheControl(cacheControl)
-                        .build();
-            }
-            Response originalResponse = chain.proceed(request);
-            if (NetworkUtil.isNetworkAvailable(MyBaseApplication.getBaseApplication())) {
-                int maxAge = 0; // read from cache
-                return originalResponse.newBuilder()
-                        .removeHeader("Pragma")
-                        .header("Cache-Control", "public ,max-age=" + maxAge)
-                        .build();
-            } else {
-                int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
-                return originalResponse.newBuilder()
-                        .removeHeader("Pragma")
-                        .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
-                        .build();
-            }
-        };
+//        //cache
+//        Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = chain -> {
+//            CacheControl.Builder cacheBuilder = new CacheControl.Builder();
+//            cacheBuilder.maxAge(0, TimeUnit.SECONDS);
+//            cacheBuilder.maxStale(365,TimeUnit.DAYS);
+//            CacheControl cacheControl = cacheBuilder.build();
+//            Request request = chain.request();
+//            if(!NetworkUtil.isNetworkAvailable(MyBaseApplication.getBaseApplication())){
+//                request = request.newBuilder()
+//                        .cacheControl(cacheControl)
+//                        .build();
+//            }
+//            Response originalResponse = chain.proceed(request);
+//            if (NetworkUtil.isNetworkAvailable(MyBaseApplication.getBaseApplication())) {
+//                int maxAge = 0; // read from cache
+//                return originalResponse.newBuilder()
+//                        .removeHeader("Pragma")
+//                        .header("Cache-Control", "public ,max-age=" + maxAge)
+//                        .build();
+//            } else {
+//                int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
+//                return originalResponse.newBuilder()
+//                        .removeHeader("Pragma")
+//                        .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+//                        .build();
+//            }
+//        };
 
 
 
 
         // 设置 Log 拦截器，可以用于以后处理一些异常情况
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                LogsUtils.d("chen", "OkHttp====message " + message);
+            }
+        });
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         // 配置 client
         // 设置拦截器
@@ -135,11 +192,13 @@ public class RetrofitFactory {
         //                .addNetworkInterceptor(mTokenInterceptor)   // 自动附加 token
         //                .authenticator(mAuthenticator)              // 认证失败自动刷新token
         client = new OkHttpClient.Builder()
-                .addInterceptor(interceptor)                // 设置拦截器
+                .addInterceptor(interceptor)
+//                .addInterceptor(getInterceptor())                // 设置拦截器
                 .retryOnConnectionFailure(true)             // 是否重试
                 .connectTimeout(DEFAULT_TIME, TimeUnit.SECONDS)        // 连接超时事件 设置为10s
                 .readTimeout(DEFAULT_TIME, TimeUnit.SECONDS)           // 读取超时时间  设置为10s
                 .cache(cache)
+//                .addNetworkInterceptor(getNetWorkInterceptor())
                 //                .addNetworkInterceptor(mTokenInterceptor)   // 自动附加 token
                 //                .authenticator(mAuthenticator)              // 认证失败自动刷新token
                 .build();
@@ -205,6 +264,11 @@ public class RetrofitFactory {
                 })
                 .compose(RxUtils.<Object>rxSchedulerHelper());
     }
+
+
+
+
+
 
 
 }

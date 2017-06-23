@@ -3,10 +3,10 @@ package com.example.xgj.doubandemo.base;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.xgj.mybaselibrary.base.BaseEntity;
+import com.example.xgj.mybaselibrary.utils.LogsUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -53,7 +53,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
 
     @Override
     public void onError(Throwable e) {
-        Log.d("gesanri", "error:" + e.toString());
+        LogsUtils.d("chen",e.toString());
 
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
@@ -64,8 +64,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
 
     @Override
     public void onComplete() {
-        Log.d("gesanri", "onComplete");
-
+        LogsUtils.d("chen","onComplete");
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
