@@ -10,7 +10,7 @@ import com.example.xgj.doubandemo.base.BaseView;
 public interface TextNewsContract {
 
     interface View extends BaseView<Presenter> {
-        void getModel(Object o);
+        void getModel(Object o);//object可以改为当前需要的bean如Ship
     }
 
     interface Presenter extends BasePresenterInterface {

@@ -1,42 +1,39 @@
 package com.example.xgj.doubandemo.mvp.latest;
 
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import com.example.xgj.doubandemo.R;
-import com.example.xgj.doubandemo.base.BaseActivity;
-
-public class LatestActivity extends BaseActivity {
+public class LatestActivity extends AppCompatActivity {
 //    @BindView(R.id.LatestActivity_tv_testId)
 //    TextView tv_testid;
 
     private LatestPresenter latestPresenter;
-
-    @Override
-    protected int getResLayoutId(Bundle savedInstanceState) {
-        return R.layout.activity_latest;
-    }
-
-
-    @Override
-    protected void onPresenter() {
-        latestPresenter = new LatestPresenter();
-
-    }
-
-    @Override
-    protected void initView() {
-
-    }
-
-    @Override
-    protected void initData() {
-
-    }
-
-    @Override
-    protected void initIntentData() {
-
-    }
+//
+//    @Override
+//    protected int getResLayoutId(Bundle savedInstanceState) {
+//        return R.layout.activity_latest;
+//    }
+//
+//
+//    @Override
+//    protected void onPresenter() {
+//        latestPresenter = new LatestPresenter();
+//
+//    }
+//
+//    @Override
+//    protected void initView() {
+//
+//    }
+//
+//    @Override
+//    protected void initData() {
+//
+//    }
+//
+//    @Override
+//    protected void initIntentData() {
+//
+//    }
 
     //    @Override
     //    protected void onCreate(Bundle savedInstanceState) {

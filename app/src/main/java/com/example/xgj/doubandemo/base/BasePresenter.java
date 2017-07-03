@@ -19,7 +19,8 @@ package com.example.xgj.doubandemo.base;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class BasePresenter {
+// T 泛型，指的是baseview，当然也可以是其他的view 类型
+public class BasePresenter<T> {
 
 
     public CompositeDisposable mCompositeDisposable;
@@ -38,5 +39,21 @@ public class BasePresenter {
         }
     }
 
+
+    // 获取 view 的view 实例
+    T view;
+
+    void onAttach(T view) {
+        this.view = view;
+    }
+
+    ;
+
+    // 解绑 view 层
+    void onDetch() {
+        this.view = null;
+    }
+
+    ;
 
 }

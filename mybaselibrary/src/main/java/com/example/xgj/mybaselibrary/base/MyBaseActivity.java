@@ -3,30 +3,31 @@ package com.example.xgj.mybaselibrary.base;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Function;
 
 public abstract class MyBaseActivity extends AppCompatActivity {
 
 
     public ProgressDialog pd;
-    public Function<Observable, ObservableSource> composeFunction;
+//    public Function<Observable, ObservableSource> composeFunction;
     private final long RETRY_TIMES = 1;
     private boolean showLoading = true;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initContentView(savedInstanceState);
-        getButterKnifeBind();// 在外部调用ButterKnife.bind(this);
-        //        setContentView(R.layout.activity_base);
+//        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//去掉了默认的导航栏
 //        getToolbarLayoutId();
-        init();
+        initContentView(savedInstanceState);
+
+//        initView();
+        //        setContentView(R.layout.activity_base);
+
     }
 
     private void initContentView(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public abstract class MyBaseActivity extends AppCompatActivity {
 //        initNet();
         onPresenter();
         initData();
-        initView();
+
 
     }
 
@@ -93,6 +94,14 @@ public abstract class MyBaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+//        getButterKnifeBind();// 在外部调用ButterKnife.bind(this);
+        initView();
+        init();
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
 
@@ -101,11 +110,17 @@ public abstract class MyBaseActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        relievePresenter();
+    }
+
     protected abstract int getResLayoutId(Bundle savedInstanceState);
 
 //    protected  abstract int getToolbarLayoutId();
 
-    protected abstract void getButterKnifeBind();
+//    protected abstract void getButterKnifeBind();
 
     protected abstract void onPresenter();
 
@@ -114,4 +129,6 @@ public abstract class MyBaseActivity extends AppCompatActivity {
     protected abstract void initData();//得到自身解析得到的数据
 
     protected abstract void initIntentData();//得到intent传递的数据
+
+    protected  abstract  void relievePresenter();
 }

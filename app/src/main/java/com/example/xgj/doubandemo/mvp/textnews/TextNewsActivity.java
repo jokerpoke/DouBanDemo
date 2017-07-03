@@ -1,6 +1,5 @@
 package com.example.xgj.doubandemo.mvp.textnews;
 
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,10 +40,6 @@ public class TextNewsActivity extends BaseActivity implements TextNewsContract.V
     private List<Ship> o1 = new ArrayList<>();
 
 
-    @Override
-    protected int getResLayoutId(Bundle savedInstanceState) {
-        return R.layout.activity_latest;
-    }
 
 
     @Override
@@ -53,8 +48,15 @@ public class TextNewsActivity extends BaseActivity implements TextNewsContract.V
         textNewsPresenter.upModel(page);
     }
 
+
+
     @Override
-    protected void initView() {
+    protected int addChildView() {
+        return R.layout.activity_latest;
+    }
+
+    @Override
+    protected void initChildContentView() {
         rv_list.setHasFixedSize(true);
         rv_list.setLayoutManager(new LinearLayoutManager(this));
         textNewsAdapter = new TextNewsAdapter(o1, TextNewsActivity.this);
@@ -69,6 +71,12 @@ public class TextNewsActivity extends BaseActivity implements TextNewsContract.V
                 }
             }
         });
+
+    }
+
+    @Override
+    protected CharSequence getPageTitle() {
+        return "标题";
     }
 
     @Override
@@ -79,6 +87,16 @@ public class TextNewsActivity extends BaseActivity implements TextNewsContract.V
     @Override
     protected void initIntentData() {
 
+    }
+
+    @Override
+    protected void relievePresenter() {
+        if (textNewsPresenter != null) {
+            textNewsPresenter = null;
+        }
+        if (presenter != null) {
+            presenter = null;
+        }
     }
 
     //得到presenter解析回调的数据
