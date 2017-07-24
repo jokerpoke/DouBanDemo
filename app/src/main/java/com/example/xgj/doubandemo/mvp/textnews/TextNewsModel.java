@@ -17,7 +17,6 @@ public class TextNewsModel extends BaseModel {
         this.textNewsPresenter = textNewsPresenter;
     }
 
-
     public void subscribe(int page) {
 
         //        observable = RetrofitFactory.getInstance().initRetrofit().getDatas("6000000395","w","15");
@@ -25,15 +24,10 @@ public class TextNewsModel extends BaseModel {
         //        observable = RetrofitFactory.getInstance().initRetrofit().getTexts(1);
         observable.compose(RxUtils.rxSchedulerHelper()).subscribe(new BaseObserver(BaseActivity.mcontext) {
 
-
-
             @Override
             protected void onHandleSuccess(Object o) {
                 textNewsPresenter.upView(o);
             }
-
-
-
 
         });
 

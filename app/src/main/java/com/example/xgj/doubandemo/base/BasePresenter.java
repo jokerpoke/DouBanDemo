@@ -47,13 +47,13 @@ public class BasePresenter<T> {
         this.view = view;
     }
 
-    ;
+
 
     // 解绑 view 层
     void onDetch() {
         this.view = null;
     }
 
-    ;
+
 
 }

@@ -18,9 +18,9 @@ import java.util.List;
 import butterknife.BindView;
 
 public class TextNewsActivity extends BaseActivity implements TextNewsContract.View {
-    @BindView(R.id.LatestActivity_rvlist)
+    @BindView(R.id.TextActivity_rvlist)
     RecyclerView rv_list;
-    @BindView(R.id.LatestActivity_srflayout)
+    @BindView(R.id.TextActivity_srflayout)
     SwipeRefreshLayout srf_layout;
 
     int page = 1;
@@ -52,7 +52,7 @@ public class TextNewsActivity extends BaseActivity implements TextNewsContract.V
 
     @Override
     protected int addChildView() {
-        return R.layout.activity_latest;
+        return R.layout.activity_text;
     }
 
     @Override

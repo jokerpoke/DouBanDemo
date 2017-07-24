@@ -11,7 +11,6 @@ public abstract class MyBaseActivity extends AppCompatActivity {
 
 
     public ProgressDialog pd;
-//    public Function<Observable, ObservableSource> composeFunction;
     private final long RETRY_TIMES = 1;
     private boolean showLoading = true;
 
@@ -22,11 +21,8 @@ public abstract class MyBaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//去掉了默认的导航栏
-//        getToolbarLayoutId();
         initContentView(savedInstanceState);
-
 //        initView();
-        //        setContentView(R.layout.activity_base);
 
     }
 
@@ -65,28 +61,7 @@ public abstract class MyBaseActivity extends AppCompatActivity {
             pd.show();
         }
 
-//        composeFunction = new Function<Observable, ObservableSource>() {
-//            @Override
-//            public ObservableSource apply(Observable observable) throws Exception {
-//                return observable.retry(RETRY_TIMES)
-//                        .subscribeOn(Schedulers.io())
-//                        .doOnSubscribe(new Consumer<Disposable>() {
-//                            @Override
-//                            public void accept(Disposable disposable) throws Exception {
-//                                if (NetworkUtil.isNetworkAvailable(MyBaseActivity.this)) {
-//                                    if (showLoading) {
-//                                        if(pd != null && !pd.isShowing()){
-//                                            pd.show();
-//                                        }
-//                                    }
-//                                } else {
-//                                    Toast.makeText(MyBaseActivity.this, "网络连接异常，请检查网络", Toast.LENGTH_LONG).show();
-//                                }
-//                            }
-//                        })
-//                        .observeOn(AndroidSchedulers.mainThread());
-//            }
-//        };
+
     }
 
     public void setLoadingFlag(boolean show) {

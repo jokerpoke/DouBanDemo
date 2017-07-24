@@ -2,13 +2,10 @@ package com.example.xgj.doubandemo.netutils;
 
 import android.os.Environment;
 
-import com.example.xgj.doubandemo.base.BaseActivity;
 import com.example.xgj.mybaselibrary.utils.LogsUtils;
-import com.example.xgj.mybaselibrary.utils.NetworkUtil;
 import com.example.xgj.mybaselibrary.utils.RxUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -16,11 +13,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 import okhttp3.Cache;
-import okhttp3.CacheControl;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
@@ -70,110 +63,45 @@ public class RetrofitFactory {
 
 
     private void init() {
-        initOkHttp();
-        //        initRetrofit();
-        //        apiService = retrofit.create(RetrofitService.class);
+        initHttp();
     }
 
+//
+//    /**
+//     * 设置返回数据的  Interceptor  判断网络   没网读取缓存
+//     */
+//    public Interceptor getInterceptor() {
+//        return new Interceptor() {
+//            @Override
+//            public Response intercept(Chain chain) throws IOException {
+//                Request request = chain.request();
+//                if (!NetworkUtil.isNetworkAvailable(BaseActivity.mcontext)) {
+//                    request = request.newBuilder()
+//                            .cacheControl(CacheControl.FORCE_CACHE)
+//                            .build();
+//                }
+//                return chain.proceed(request);
+//            }
+//        };
+//    }
 
 
-    /**
-     * 设置返回数据的  Interceptor  判断网络   没网读取缓存
-     */
-    public Interceptor getInterceptor(){
-        return new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                if (!NetworkUtil.isNetworkAvailable(BaseActivity.mcontext)) {
-                    request = request.newBuilder()
-                            .cacheControl(CacheControl.FORCE_CACHE)
-                            .build();
-                }
-                return chain.proceed(request);
-            }
-        };
-    }
-
-
-    /**
-     * 设置连接器  设置缓存
-     */
-    public Interceptor getNetWorkInterceptor (){
-        return new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                Response response = chain.proceed(request);
-                if (NetworkUtil.isNetworkAvailable(BaseActivity.mcontext)) {
-                    int maxAge = 0 * 60;
-                    // 有网络时 设置缓存超时时间0个小时
-                    response.newBuilder()
-                            .header("Cache-Control", "public, max-age=" + maxAge)
-                            .removeHeader("Pragma")
-                            .build();
-                } else {
-                    // 无网络时，设置超时为1周
-                    int maxStale = 60 * 60 * 24 * 7;
-                    response.newBuilder()
-                            .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
-                            .removeHeader("Pragma")
-                            .build();
-                }
-                return response;
-            }
-        };
-    }
-
-
-
-    private void initOkHttp() {
+    private void initHttp() {
 
 
         //设置缓存
         File httpCacheDirectory = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
-        int cacheSize = 10 * 1024 * 1024; // 10 MiB 缓存大小
+        int cacheSize = 100 * 1024 * 1024; // 100 MiB 缓存大小
         Cache cache = new Cache(httpCacheDirectory, cacheSize);
 
-//        //包括控制缓存的最大生命值，控制缓存的过期时间
-//        CacheControl.Builder cacheBuilder = new CacheControl.Builder();
-//        cacheBuilder.maxAge(0, TimeUnit.SECONDS);//这个是控制缓存的最大生命时间
-//        cacheBuilder.maxStale(365, TimeUnit.DAYS);//这个是控制缓存的过时时间
-//        CacheControl cacheControl = cacheBuilder.build();
+        //        //包括控制缓存的最大生命值，控制缓存的过期时间
+        //        CacheControl.Builder cacheBuilder = new CacheControl.Builder();
+        //        cacheBuilder.maxAge(0, TimeUnit.SECONDS);//这个是控制缓存的最大生命时间
+        //        cacheBuilder.maxStale(365, TimeUnit.DAYS);//这个是控制缓存的过时时间
+        //        CacheControl cacheControl = cacheBuilder.build();
 
 
-
-
-
-//        //cache
-//        Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = chain -> {
-//            CacheControl.Builder cacheBuilder = new CacheControl.Builder();
-//            cacheBuilder.maxAge(0, TimeUnit.SECONDS);
-//            cacheBuilder.maxStale(365,TimeUnit.DAYS);
-//            CacheControl cacheControl = cacheBuilder.build();
-//            Request request = chain.request();
-//            if(!NetworkUtil.isNetworkAvailable(MyBaseApplication.getBaseApplication())){
-//                request = request.newBuilder()
-//                        .cacheControl(cacheControl)
-//                        .build();
-//            }
-//            Response originalResponse = chain.proceed(request);
-//            if (NetworkUtil.isNetworkAvailable(MyBaseApplication.getBaseApplication())) {
-//                int maxAge = 0; // read from cache
-//                return originalResponse.newBuilder()
-//                        .removeHeader("Pragma")
-//                        .header("Cache-Control", "public ,max-age=" + maxAge)
-//                        .build();
-//            } else {
-//                int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
-//                return originalResponse.newBuilder()
-//                        .removeHeader("Pragma")
-//                        .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
-//                        .build();
-//            }
-//        };
-
-
+        //
 
 
         // 设置 Log 拦截器，可以用于以后处理一些异常情况
@@ -184,36 +112,42 @@ public class RetrofitFactory {
             }
         });
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+
         // 配置 client
         // 设置拦截器
         // 是否重试
         // 连接超时事件 设置为10s
         // 读取超时时间  设置为10s
-        //                .addNetworkInterceptor(mTokenInterceptor)   // 自动附加 token
-        //                .authenticator(mAuthenticator)              // 认证失败自动刷新token
         client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
-//                .addInterceptor(getInterceptor())                // 设置拦截器
+                //                .addInterceptor(getInterceptor())                // 设置拦截器
                 .retryOnConnectionFailure(true)             // 是否重试
                 .connectTimeout(DEFAULT_TIME, TimeUnit.SECONDS)        // 连接超时事件 设置为10s
                 .readTimeout(DEFAULT_TIME, TimeUnit.SECONDS)           // 读取超时时间  设置为10s
+                .writeTimeout(DEFAULT_TIME, TimeUnit.SECONDS)
                 .cache(cache)
-//                .addNetworkInterceptor(getNetWorkInterceptor())
+                .addNetworkInterceptor(new NetworkInterceptor())
+                .addInterceptor(interceptor)  // 设置拦截器
                 //                .addNetworkInterceptor(mTokenInterceptor)   // 自动附加 token
                 //                .authenticator(mAuthenticator)              // 认证失败自动刷新token
                 .build();
-    }
 
-    //设为public让外部获取到
-    public RetrofitService initRetrofit() {
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(HOST)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build();
-        apiService = retrofit.create(RetrofitService.class);
-        return apiService;
+
+
+    }
+
+
+    //设为public让外部获取到
+    public RetrofitService initRetrofit() {
+        return retrofit.create(RetrofitService.class);
     }
 
 
@@ -264,11 +198,6 @@ public class RetrofitFactory {
                 })
                 .compose(RxUtils.<Object>rxSchedulerHelper());
     }
-
-
-
-
-
 
 
 }

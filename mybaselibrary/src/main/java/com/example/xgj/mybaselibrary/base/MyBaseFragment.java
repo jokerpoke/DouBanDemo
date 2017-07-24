@@ -16,7 +16,6 @@ public abstract class MyBaseFragment extends Fragment {
 
     private View mView;
 
-    //    Unbinder unbinder;
 
     public MyBaseFragment() {
         // Required empty public constructor
@@ -29,7 +28,6 @@ public abstract class MyBaseFragment extends Fragment {
         // Inflate the layout for this fragment
         mView = inflater.inflate(getLayoutRes(), container, false);
         //        View inflate = inflater.inflate(R.layout.fragment_base, container, false);
-        //        unbinder = ButterKnife.bind(this, mView);
         getButterKnifeBind(mView);
         return mView;
     }
@@ -45,7 +43,6 @@ public abstract class MyBaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        //        unbinder.unbind();
         unbindButterKnife();
     }
 

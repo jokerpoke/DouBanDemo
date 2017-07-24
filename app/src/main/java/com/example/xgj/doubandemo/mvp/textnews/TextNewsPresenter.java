@@ -11,48 +11,11 @@ public class TextNewsPresenter extends BasePresenter implements TextNewsContract
     private TextNewsModel textNewsModel;
 
 
-
-
-
     public TextNewsPresenter(TextNewsContract.View mView) {
-        this.textNewsModel=new TextNewsModel(this);
+        this.textNewsModel = new TextNewsModel(this);
         this.mView = mView;
         mView.setPresenter(this);
     }
-
-
-//    public void updataModel(int page) {
-
-        //        subscribe(page);
-
-//    }
-
-//    public void subscribe(int page) {
-        //        RetrofitService
-        //                .getInstance()
-        //                .getTextData(page)
-        //                .subscribe(new Observer<Object>() {
-        //                    @Override
-        //                    public void onSubscribe(Disposable d) {
-        //
-        //                    }
-        //
-        //                    @Override
-        //                    public void onNext(Object o) {
-        //
-        //                    }
-        //
-        //                    @Override
-        //                    public void onError(Throwable e) {
-        //                        LogsUtils.e("TextNewsPresenter", e.toString());
-        //                    }
-        //
-        //                    @Override
-        //                    public void onComplete() {
-        //
-        //                    }
-        //                });
-//    }
 
 
     @Override

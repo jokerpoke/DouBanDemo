@@ -18,15 +18,18 @@ public abstract class BaseActivity extends MyBaseActivity {
     private LayoutInflater layoutInflater;
     protected View mView;
 
-   private FrameLayout fl_container;
-   private  TextView tv_title;
-    private Toolbar toolbar;
+        private FrameLayout fl_container;
+        private TextView tv_title;
+        private Toolbar toolbar;
 
-//    @Override
-//    protected void getButterKnifeBind() {
 
-//        mcontext = this;
-//    }
+//    @BindView(R.id.base_titlebar_fl_container)
+//    FrameLayout fl_container;
+//    @BindView(R.id.base_titlebar_tv_title)
+//    TextView tv_title;
+//    @BindView(R.id.base_titlebar_toolbar)
+//    Toolbar toolbar;
+
 
     @Override
     protected int getResLayoutId(Bundle savedInstanceState) {
@@ -35,11 +38,11 @@ public abstract class BaseActivity extends MyBaseActivity {
 
     @Override
     protected void initView() {
-        mcontext=this;
+        mcontext = this;
 
-        fl_container= (FrameLayout) this.findViewById( R.id.base_titlebar_fl_container);
-        tv_title= (TextView) this.findViewById(R.id.base_titlebar_tv_title);
-        toolbar= (Toolbar) this.findViewById(R.id.base_titlebar_toolbar);
+                fl_container = (FrameLayout) this.findViewById(R.id.base_titlebar_fl_container);
+        tv_title = (TextView) this.findViewById(R.id.base_titlebar_tv_title);
+        toolbar = (Toolbar) this.findViewById(R.id.base_titlebar_toolbar);
 
         toolbar.setNavigationIcon(R.mipmap.ic_launcher_round);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -51,7 +54,7 @@ public abstract class BaseActivity extends MyBaseActivity {
 
         tv_title.setText(getPageTitle());//设置标题
 
-        mView = layoutInflater.from(mcontext).inflate(addChildView(),fl_container,false);
+        mView = layoutInflater.from(mcontext).inflate(addChildView(), fl_container, false);
         fl_container.addView(mView);
         ButterKnife.bind(this);
         initChildContentView();

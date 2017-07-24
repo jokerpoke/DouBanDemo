@@ -3,7 +3,7 @@
           package="com.example.xgj.doubandemo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
@@ -22,11 +22,11 @@
         <activity android:name=".base.BaseActivity">
         </activity>
         <activity android:name=".mvp.latest.LatestActivity">
+
         </activity>
         <activity android:name=".mvp.textnews.TextNewsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
