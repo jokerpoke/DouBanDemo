@@ -2,6 +2,7 @@ package com.example.xgj.doubandemo.netutils;
 
 import android.os.Environment;
 
+import com.example.xgj.mybaselibrary.base.MyBaseApplication;
 import com.example.xgj.mybaselibrary.utils.LogsUtils;
 import com.example.xgj.mybaselibrary.utils.RxUtils;
 
@@ -126,9 +127,11 @@ public class RetrofitFactory {
                 .connectTimeout(DEFAULT_TIME, TimeUnit.SECONDS)        // 连接超时事件 设置为10s
                 .readTimeout(DEFAULT_TIME, TimeUnit.SECONDS)           // 读取超时时间  设置为10s
                 .writeTimeout(DEFAULT_TIME, TimeUnit.SECONDS)
-                .cache(cache)
+//                .cache(cache)
                 .addNetworkInterceptor(new NetworkInterceptor())
                 .addInterceptor(interceptor)  // 设置拦截器
+                .addNetworkInterceptor(new CacheInterceptor())//缓存拦截器
+                .cache(new CacheProvide(MyBaseApplication.getBaseApplication()).provideCache())//缓存空间提供器
                 //                .addNetworkInterceptor(mTokenInterceptor)   // 自动附加 token
                 //                .authenticator(mAuthenticator)              // 认证失败自动刷新token
                 .build();

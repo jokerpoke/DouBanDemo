@@ -10,7 +10,6 @@ import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -71,7 +70,8 @@ public interface RetrofitService {
                                  @Field("transAmt") String transAmt
     );
 
-    @Headers("Cache-Control: public, max-age=1000")
+//    @Headers("Cache-Control: public, max-age=1000")
+//    @Headers("Cache-Time: ")
     @FormUrlEncoded
     @POST("AppFiftyToneGraph/videoLink")
     Observable<BaseEntity<List<Ship>>> getAllVedio(@Field("once_no") boolean once_no);

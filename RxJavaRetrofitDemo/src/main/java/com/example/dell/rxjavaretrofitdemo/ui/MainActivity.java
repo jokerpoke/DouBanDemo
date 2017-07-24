@@ -1,9 +1,11 @@
 package com.example.dell.rxjavaretrofitdemo.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.example.dell.rxjavaretrofitdemo.R;
 import com.example.dell.rxjavaretrofitdemo.adapter.RvAdapter;
@@ -57,5 +59,18 @@ public class MainActivity extends AppCompatActivity {
                         //执行完成
                     }
                 });
+    }
+
+    public void btn_jumo(View view) {
+        Intent intent=null;
+        try{
+         intent=new Intent(MainActivity.this,Main2Activity.class);
+        startActivity(intent);
+
+        }catch(Exception e){
+
+        }
+        startActivity(intent);
+        Log.d("MainActivity", "btn_jumo: "+"MainActivity");
     }
 }

@@ -23,7 +23,7 @@ public class CacheInterceptor implements Interceptor {
                     .removeHeader("Pragma")
                     .removeHeader("Cache-Control")
                     //cache for cache seconds
-                    .header("Cache-Control", "max-age="+cache)
+                    .header("Cache-Control", "max-age="+ 3600 * 24 * 30)
                     .build();
             return response1;
         } else {

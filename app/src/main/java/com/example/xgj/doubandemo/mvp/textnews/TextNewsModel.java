@@ -20,8 +20,8 @@ public class TextNewsModel extends BaseModel {
     public void subscribe(int page) {
 
         //        observable = RetrofitFactory.getInstance().initRetrofit().getDatas("6000000395","w","15");
-        observable = RetrofitFactory.getInstance().initRetrofit().getAllVedio(true);
-        //        observable = RetrofitFactory.getInstance().initRetrofit().getTexts(1);
+//        observable = RetrofitFactory.getInstance().initRetrofit().getAllVedio(true);
+                observable = RetrofitFactory.getInstance().initRetrofit().getTexts(1);
         observable.compose(RxUtils.rxSchedulerHelper()).subscribe(new BaseObserver(BaseActivity.mcontext) {
 
             @Override
